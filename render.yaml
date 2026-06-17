@@ -27,7 +27,6 @@ services:
   - type: web
     name: job-tracker-frontend
     runtime: static
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
