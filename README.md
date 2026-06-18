@@ -191,9 +191,6 @@ This repo includes a `render.yaml` blueprint covering all three pieces: a manage
    - On the frontend service, set `VITE_API_URL` to your backend's Render URL (e.g. `https://job-tracker-backend.onrender.com`), then trigger a redeploy of the frontend (Vite env vars are baked in at build time).
 5. Run the schema init once against the deployed database. The simplest way: temporarily set `DATABASE_URL` in your local `backend/.env` to the external connection string shown in the Render database dashboard, then run `npm run db:init` from your machine.
 
-## Live demo
-
-_Add your deployed frontend URL here once deployed._
 
 ## Screenshots / demo video
 
