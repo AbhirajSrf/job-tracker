@@ -17,8 +17,6 @@ This is a CRUD application with a React frontend and an Express + PostgreSQL RES
 | Database | PostgreSQL |
 | API style | REST (JSON) |
 
-The backend also includes `jsonwebtoken`, `bcrypt`, and `cookie-parser` as listed dependencies per the assignment spec, though no authentication flow is implemented — this app intentionally has no login, as the feature list did not call for one.
-
 ## Project structure
 
 ```
@@ -43,9 +41,9 @@ job-tracker/
 
 ## Prerequisites
 
-- Node.js 18+
+- Node.js 
 - npm
-- PostgreSQL 14+ (running locally, or a hosted instance — e.g. Render, Supabase, Neon)
+- PostgreSQL 
 
 ## Installation
 
@@ -128,10 +126,6 @@ cd frontend
 npm run build
 npm run preview
 ```
-
-## Tests
-
-No automated test suite is included in this submission.
 
 ## API documentation
 
