@@ -207,5 +207,3 @@ This repo includes a `render.yaml` blueprint covering all three pieces: a manage
 ## Live Demo
 
 🚀 Live Website: https://job-tracker-frontend-11h3.onrender.com/
-
-Note: This project does not include user authentication. There are currently no Login, Signup, Password Reset, or User Management features. The application is intended to demonstrate full-stack CRUD operations, REST API development, PostgreSQL integration, filtering, searching, pagination, and deployment workflows.
