@@ -1,4 +1,3 @@
-// Centralized error handler. Any error passed via next(err) lands here.
 function errorHandler(err, req, res, next) {
   console.error(err);
 
@@ -7,7 +6,7 @@ function errorHandler(err, req, res, next) {
   }
 
   res.status(500).json({
-    error: 'Internal server error.',
+    error: "Internal server error.",
   });
 }
 

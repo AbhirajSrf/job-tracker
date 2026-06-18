@@ -1,6 +1,3 @@
--- Job Application Tracker - Database Schema
--- Run with: psql $DATABASE_URL -f db/init.sql
-
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 DO $$ BEGIN
@@ -45,7 +42,7 @@ BEFORE UPDATE ON applications
 FOR EACH ROW
 EXECUTE FUNCTION set_updated_at();
 
--- Optional seed data for local development/demo screenshots
+-- Demo data
 INSERT INTO applications (company_name, job_title, job_type, status, applied_date, notes)
 VALUES
     ('Acme Corp', 'Frontend Developer Intern', 'Internship', 'Applied', '2026-06-01', 'Applied via referral'),

@@ -1,22 +1,26 @@
-import { useState, useEffect } from 'react';
-import FilterBar from './components/FilterBar';
-import ApplicationCard from './components/ApplicationCard';
-import ApplicationForm from './components/ApplicationForm';
-import ApplicationDetail from './components/ApplicationDetail';
-import ConfirmDialog from './components/ConfirmDialog';
-import Modal from './components/Modal';
-import EmptyState from './components/EmptyState';
-import Pagination from './components/Pagination';
-import Toast from './components/Toast';
-import useDebounce from './hooks/useDebounce';
-import * as api from './api/applications';
-import './App.css';
+import { useState, useEffect } from "react";
+import FilterBar from "./components/FilterBar";
+import ApplicationCard from "./components/ApplicationCard";
+import ApplicationForm from "./components/ApplicationForm";
+import ApplicationDetail from "./components/ApplicationDetail";
+import ConfirmDialog from "./components/ConfirmDialog";
+import Modal from "./components/Modal";
+import EmptyState from "./components/EmptyState";
+import Pagination from "./components/Pagination";
+import Toast from "./components/Toast";
+import useDebounce from "./hooks/useDebounce";
+import * as api from "./api/applications";
+import "./App.css";
 
 export default function App() {
   const [applications, setApplications] = useState([]);
-  const [pagination, setPagination] = useState({ page: 1, totalPages: 1, total: 0 });
-  const [status, setStatus] = useState('');
-  const [search, setSearch] = useState('');
+  const [pagination, setPagination] = useState({
+    page: 1,
+    totalPages: 1,
+    total: 0,
+  });
+  const [status, setStatus] = useState("");
+  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const debouncedSearch = useDebounce(search, 350);
 
@@ -40,33 +44,21 @@ export default function App() {
       setApplications(result.data);
       setPagination(result.pagination);
     } catch (err) {
-      setError(err.message || 'Could not load applications.');
+      setError(err.message || "Could not load applications.");
     } finally {
       setLoading(false);
     }
   }
 
-  // Reset to page 1 whenever the filters change. This effect only ever
-  // touches `page` state itself (no nested async/data calls), so it can't
-  // cascade into the data-fetch below in an unexpected way.
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
   }, [status, debouncedSearch]);
 
-  // Fetch whenever the page (or, indirectly via the effect above, the
-  // filters) changes. This is the single place server data is requested.
-  // fetchApplications is intentionally omitted from deps: it's a plain
-  // function (re-created each render) that reads status/debouncedSearch/page
-  // from closure, so including it would need useCallback or cause loops;
-  // the actual values it depends on are already listed below.
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchApplications(page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, status, debouncedSearch]);
 
-  function showToast(message, tone = 'success') {
+  function showToast(message, tone = "success") {
     setToast({ message, tone });
   }
 
@@ -98,22 +90,24 @@ export default function App() {
     closeModal();
     try {
       await api.deleteApplication(target.id);
-      showToast(`Removed ${target.company_name}.`, 'success');
+      showToast(`Removed ${target.company_name}.`, "success");
       fetchApplications();
     } catch (err) {
       setApplications((prev) => [target, ...prev]);
-      showToast(err.message || 'Could not delete. Please try again.', 'error');
+      showToast(err.message || "Could not delete. Please try again.", "error");
     }
   }
 
-  const hasFilters = status !== '' || search.trim() !== '';
+  const hasFilters = status !== "" || search.trim() !== "";
 
   return (
     <div className="app-shell">
       <header className="app-header">
         <div>
           <h1>Job Application Tracker</h1>
-          <p className="app-header__subtitle">Every application, interview, and offer — in one place.</p>
+          <p className="app-header__subtitle">
+            Every application, interview, and offer — in one place.
+          </p>
         </div>
         {pagination.total > 0 && (
           <div className="app-header__count">{pagination.total} total</div>
@@ -125,25 +119,31 @@ export default function App() {
         onStatusChange={setStatus}
         search={search}
         onSearchChange={setSearch}
-        onAddNew={() => setModal('add')}
+        onAddNew={() => setModal("add")}
       />
 
-      {loading && (
-        <div className="state-message">Loading applications…</div>
-      )}
+      {loading && <div className="state-message">Loading applications…</div>}
 
       {!loading && error && (
         <div className="state-message state-message--error">
           {error}
-          <button className="btn btn--ghost btn--sm" onClick={() => fetchApplications()}>Retry</button>
+          <button
+            className="btn btn--ghost btn--sm"
+            onClick={() => fetchApplications()}
+          >
+            Retry
+          </button>
         </div>
       )}
 
       {!loading && !error && applications.length === 0 && (
         <EmptyState
           hasFilters={hasFilters}
-          onAddNew={() => setModal('add')}
-          onClearFilters={() => { setStatus(''); setSearch(''); }}
+          onAddNew={() => setModal("add")}
+          onClearFilters={() => {
+            setStatus("");
+            setSearch("");
+          }}
         />
       )}
 
@@ -154,24 +154,41 @@ export default function App() {
               <ApplicationCard
                 key={application.id}
                 application={application}
-                onView={(a) => { setActiveApplication(a); setModal('view'); }}
-                onEdit={(a) => { setActiveApplication(a); setModal('edit'); }}
-                onDelete={(a) => { setActiveApplication(a); setModal('delete'); }}
+                onView={(a) => {
+                  setActiveApplication(a);
+                  setModal("view");
+                }}
+                onEdit={(a) => {
+                  setActiveApplication(a);
+                  setModal("edit");
+                }}
+                onDelete={(a) => {
+                  setActiveApplication(a);
+                  setModal("delete");
+                }}
               />
             ))}
           </div>
 
-          <Pagination page={pagination.page} totalPages={pagination.totalPages} onPageChange={setPage} />
+          <Pagination
+            page={pagination.page}
+            totalPages={pagination.totalPages}
+            onPageChange={setPage}
+          />
         </>
       )}
 
-      {modal === 'add' && (
+      {modal === "add" && (
         <Modal title="Add application" onClose={closeModal}>
-          <ApplicationForm onSubmit={handleCreate} onCancel={closeModal} submitLabel="Add application" />
+          <ApplicationForm
+            onSubmit={handleCreate}
+            onCancel={closeModal}
+            submitLabel="Add application"
+          />
         </Modal>
       )}
 
-      {modal === 'edit' && activeApplication && (
+      {modal === "edit" && activeApplication && (
         <Modal title="Edit application" onClose={closeModal}>
           <ApplicationForm
             key={activeApplication.id}
@@ -183,17 +200,20 @@ export default function App() {
         </Modal>
       )}
 
-      {modal === 'view' && activeApplication && (
+      {modal === "view" && activeApplication && (
         <Modal title="Application details" onClose={closeModal}>
           <ApplicationDetail
             application={activeApplication}
             onClose={closeModal}
-            onEdit={(a) => { setActiveApplication(a); setModal('edit'); }}
+            onEdit={(a) => {
+              setActiveApplication(a);
+              setModal("edit");
+            }}
           />
         </Modal>
       )}
 
-      {modal === 'delete' && activeApplication && (
+      {modal === "delete" && activeApplication && (
         <Modal title="Delete application" onClose={closeModal}>
           <ConfirmDialog
             message={`Delete the application for ${activeApplication.job_title} at ${activeApplication.company_name}? This can't be undone.`}
@@ -203,7 +223,13 @@ export default function App() {
         </Modal>
       )}
 
-      {toast && <Toast message={toast.message} tone={toast.tone} onDismiss={() => setToast(null)} />}
+      {toast && (
+        <Toast
+          message={toast.message}
+          tone={toast.tone}
+          onDismiss={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }
