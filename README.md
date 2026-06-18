@@ -193,12 +193,17 @@ This repo includes a `render.yaml` blueprint covering all three pieces: a manage
 
 
 ## Screenshots / demo video
+# Screenshots
 
-_Add screenshots or a short Loom/demo link here before submitting._
+## Dashboard
+![Home](./screenshots/home.png)
 
-## Notes on design decisions
+## Sidebar
+![Adding application](./screenshots/adding.png)
 
-- **No authentication**: the feature list didn't request login/auth, so none was built, despite `jsonwebtoken`/`bcrypt`/`cookie-parser` being listed as required dependencies (kept in `package.json` per the spec, just unused).
-- **Postgres native enums** for `job_type` and `status` rather than plain strings, for database-level data integrity.
-- **Pagination** included on the list endpoint as a small bonus item, since it was a natural fit alongside status/search filtering.
-- **Optimistic UI** on delete: the row disappears immediately and only reappears if the server call fails, with an error toast.
+## Dropdown Menu
+![Searching application](./screenshots/search.png)
+
+## Live Demo
+
+🚀 Live Website: https://job-tracker-frontend-11h3.onrender.com/
