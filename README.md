@@ -17,8 +17,6 @@ This is a CRUD application with a React frontend and an Express + PostgreSQL RES
 | Database | PostgreSQL |
 | API style | REST (JSON) |
 
-The backend also includes `jsonwebtoken`, `bcrypt`, and `cookie-parser` as listed dependencies per the assignment spec, though no authentication flow is implemented — this app intentionally has no login, as the feature list did not call for one.
-
 ## Project structure
 
 ```
@@ -43,9 +41,9 @@ job-tracker/
 
 ## Prerequisites
 
-- Node.js 18+
+- Node.js 
 - npm
-- PostgreSQL 14+ (running locally, or a hosted instance — e.g. Render, Supabase, Neon)
+- PostgreSQL 
 
 ## Installation
 
@@ -129,10 +127,6 @@ npm run build
 npm run preview
 ```
 
-## Tests
-
-No automated test suite is included in this submission.
-
 ## API documentation
 
 Base URL: `http://localhost:4000` (or your deployed backend URL)
@@ -197,17 +191,19 @@ This repo includes a `render.yaml` blueprint covering all three pieces: a manage
    - On the frontend service, set `VITE_API_URL` to your backend's Render URL (e.g. `https://job-tracker-backend.onrender.com`), then trigger a redeploy of the frontend (Vite env vars are baked in at build time).
 5. Run the schema init once against the deployed database. The simplest way: temporarily set `DATABASE_URL` in your local `backend/.env` to the external connection string shown in the Render database dashboard, then run `npm run db:init` from your machine.
 
-## Live demo
-
-_Add your deployed frontend URL here once deployed._
 
 ## Screenshots / demo video
+# Screenshots
 
-_Add screenshots or a short Loom/demo link here before submitting._
+## Dashboard
+![Home](./screenshots/home.png)
 
-## Notes on design decisions
+## Sidebar
+![Adding application](./screenshots/adding.png)
 
-- **No authentication**: the feature list didn't request login/auth, so none was built, despite `jsonwebtoken`/`bcrypt`/`cookie-parser` being listed as required dependencies (kept in `package.json` per the spec, just unused).
-- **Postgres native enums** for `job_type` and `status` rather than plain strings, for database-level data integrity.
-- **Pagination** included on the list endpoint as a small bonus item, since it was a natural fit alongside status/search filtering.
-- **Optimistic UI** on delete: the row disappears immediately and only reappears if the server call fails, with an error toast.
+## Dropdown Menu
+![Searching application](./screenshots/search.png)
+
+## Live Demo
+
+🚀 Live Website: https://job-tracker-frontend-11h3.onrender.com/
