@@ -195,13 +195,13 @@ This repo includes a `render.yaml` blueprint covering all three pieces: a manage
 ## Screenshots / demo video
 # Screenshots
 
-## Dashboard
+## Home
 ![Home](./screenshots/home.png)
 
-## Sidebar
+## Adding Application
 ![Adding application](./screenshots/adding.png)
 
-## Dropdown Menu
+## Searching Menu
 ![Searching application](./screenshots/search.png)
 
 ## Live Demo
